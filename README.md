@@ -1,5 +1,7 @@
 # Kometa
 
+[![Gem Version](https://badge.fury.io/rb/kometa.svg)](http://badge.fury.io/rb/kometa)
+
 TODO: Write a gem description
 
 ## Installation
