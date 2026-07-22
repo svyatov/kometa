@@ -15,7 +15,8 @@ Gem::Specification.new do |spec|
 
   spec.metadata = {
     'source_code_uri' => spec.homepage,
-    'bug_tracker_uri' => "#{spec.homepage}/issues"
+    'bug_tracker_uri' => "#{spec.homepage}/issues",
+    'rubygems_mfa_required' => 'true'
   }
 
   spec.files = `git ls-files -z`.split("\x0").grep_v(%r{\A(?:spec/|\.)})
