@@ -1,0 +1,31 @@
+name: CI
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['**']
+jobs:
+  # One leg per Ruby the gemspec promises (>= 3.3.0), because a required check that runs
+  # a single Ruby verifies less than the gem advertises. publish.yaml tests only the tag
+  # build, so before this workflow nothing ran the specs on a pull request.
+  spec:
+    name: spec (ruby ${{ matrix.ruby }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.3', '3.4', '4.0']
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@a30dfa457ad68707b8b910ac3a244714b61c0626 # v1.320.0
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Run the specs
+        run: bundle exec rake spec
